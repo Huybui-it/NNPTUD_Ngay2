@@ -1,4 +1,4 @@
-// Câu 1:
+// Khai báo constructor function Product
 function Product(id, name, price, quantity, category, isAvailable) {
   this.id = id;
   this.name = name;
@@ -8,7 +8,7 @@ function Product(id, name, price, quantity, category, isAvailable) {
   this.isAvailable = isAvailable;
 }
 
-// Câu 2:
+// Dữ liệu sản phẩm
 const products = [
   new Product(1, "iPhone 14 Pro", 28000000, 5, "Smartphone", true),
   new Product(2, "Samsung Galaxy S23", 22000000, 0, "Smartphone", true),
@@ -19,68 +19,57 @@ const products = [
   new Product(7, "Ốp lưng iPhone", 450000, 25, "Accessories", true),
 ];
 
-//
-const nameAndPrice = products.map((product) => ({
-  name: product.name,
-  price: product.price,
-}));
+// =============================================
+// Câu 1: Khai báo constructor function Product
+// (đã khai báo ở trên)
 
-console.log("Câu 3 :");
-console.log(nameAndPrice);
-console.log("--------------------------------------------------");
+// Câu 2: Khởi tạo mảng products
+// (đã khởi tạo ở trên)
 
-// Câu 4:
-const inStock = products.filter((product) => product.quantity > 0);
+// Câu 3: Tạo mảng mới chỉ chứa name và price
+const nameAndPrice = products.map((p) => ({ name: p.name, price: p.price }));
 
-console.log("Câu 4 :");
-console.table(inStock);
-console.log("--------------------------------------------------");
+console.log("Câu 3 :", nameAndPrice);
 
-// Câu 5:
-const hasExpensiveProduct = products.some(
-  (product) => product.price > 30000000,
-);
+// Câu 4: Lọc sản phẩm còn hàng (quantity > 0)
+const inStock = products.filter((p) => p.quantity > 0);
 
-console.log("Câu 5 :", hasExpensiveProduct);
-console.log("--------------------------------------------------");
+console.log("Câu 4 :", inStock);
 
-// Câu 6:
+// Câu 5: Có ít nhất một sản phẩm giá > 30.000.000 không
+const hasExpensive = products.some((p) => p.price > 30000000);
+
+console.log("Câu 5 :", hasExpensive);
+
+// Câu 6: Tất cả sản phẩm Accessories có đang bán không
 const allAccessoriesAvailable = products
   .filter((p) => p.category === "Accessories")
   .every((p) => p.isAvailable === true);
 
 console.log("Câu 6 :", allAccessoriesAvailable);
-console.log("--------------------------------------------------");
 
-// Câu 7:
-const totalInventoryValue = products.reduce((total, product) => {
-  return total + product.price * product.quantity;
-}, 0);
+// Câu 7: Tổng giá trị kho hàng
+const totalValue = products.reduce((sum, p) => sum + p.price * p.quantity, 0);
 
-console.log("Câu 7 :", totalInventoryValue.toLocaleString() + " VNĐ");
-console.log("--------------------------------------------------");
+console.log("Câu 7 :", totalValue.toLocaleString() + " VNĐ");
 
-// Câu 8:
+// Câu 8: Duyệt for...of in: Tên - Danh mục - Trạng thái
 console.log("Câu 8 :");
-for (const product of products) {
-  const status = product.isAvailable ? "Đang bán" : "Ngừng bán";
-  console.log(`${product.name} - ${product.category} - ${status}`);
+for (const p of products) {
+  const status = p.isAvailable ? "Đang bán" : "Ngừng bán";
+  console.log(`${p.name} - ${p.category} - ${status}`);
 }
-console.log("--------------------------------------------------");
 
-// Câu 9:
+// Câu 9: Dùng for...in in thuộc tính và giá trị (sản phẩm đầu tiên)
 console.log("Câu 9 :");
-const firstProduct = products[0];
-
-for (const key in firstProduct) {
-  console.log(`${key}: ${firstProduct[key]}`);
+const first = products[0];
+for (const key in first) {
+  console.log(`${key}: ${first[key]}`);
 }
-console.log("--------------------------------------------------");
 
-// Câu 10: Lấy danh sách tên các sản phẩm đang bán VÀ còn hàng
-const availableAndInStockNames = products
+// Câu 10: Danh sách tên sản phẩm đang bán VÀ còn hàng
+const availableInStockNames = products
   .filter((p) => p.isAvailable && p.quantity > 0)
   .map((p) => p.name);
 
-console.log("Câu 10 :");
-console.log(availableAndInStockNames);
+console.log("Câu 10 :", availableInStockNames);
